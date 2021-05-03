@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Todo;
+use App\Models\Todo2;
 
 class TodoController extends Controller
 {
@@ -15,7 +15,7 @@ class TodoController extends Controller
 
     public function index()
     {
-    	$todos = Todo::all();
+    	$todos = Todo2::all();
 
     	return view('todos.index', compact('todos'));
     }
@@ -37,18 +37,18 @@ class TodoController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-     public function store(Request $request)
+    protected function store(Request $request)
      {
     	$request->validate([
     	    'title'=>'required'
     	]);
 	
-    	$todo = new Todo([
+    	$todos = new Todo2([
     	    'title' => $request->get('title'),
     	    'memo' => $request->get('memo')
     	]);
-    	$todo->save();
-    	return redirect('/todo')->with('success', 'todo saved!');
+    	$todos->save();
+    	return redirect('/todos')->with('success', 'todos saved!');
     }
 
     /**
@@ -71,8 +71,8 @@ class TodoController extends Controller
 
     public function edit($id)
     {
-    	$todo = Todo::find($id);
-    	return view('todos.edit', compact('todo'));
+    	$todos = Todo2::find($id);
+    	return view('todos.edit', compact('todos'));
     }
 
 
@@ -89,10 +89,10 @@ class TodoController extends Controller
     	    'title'=>'required'
     	]);
 
-    	$todo = Todo::find($id);
-    	$todo->title =  $request->get('title');
-    	$todo->memo = $request->get('memo');
-    	$todo->save();
+    	$todos = Todo2::find($id);
+    	$todos->title =  $request->get('title');
+    	$todos->memo = $request->get('memo');
+    	$todos->save();
 
     	return redirect('/todos')->with('success', 'Todo 更新完了');
     }
@@ -106,8 +106,8 @@ class TodoController extends Controller
 
     public function destroy($id)
     {
-    	$todo = Todo::find($id);
-    	$todo->delete();
+    	$todos = Todo2::find($id);
+    	$todos->delete();
 	
     	return redirect('/todos')->with('success', 'Todo １つ完了');
     }

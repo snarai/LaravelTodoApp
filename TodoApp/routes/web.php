@@ -18,5 +18,7 @@ Route::get('/', function () {
 });
 
 
-Route::resource('todos', 'TodoController');
+Route::resource('todos', 'App\Http\Controllers\TodoController');
+
+// Route::resource('todos', 'TodoController');
 

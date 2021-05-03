@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Todo2 extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'title',
+        'memo'
+        ];
 }
